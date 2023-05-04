@@ -15,7 +15,7 @@ def estimate_hours(row):
     try:
         distance = int(row["Dystans [km]"])
     except ValueError:
-        return ("Błąd w wygenerowanym raporcie")
+        return ("Brak danych o liczbie kilometrów")
     for elem in ranges:
         if distance > elem[0] and distance <= elem[1]:
             return (elem[2])

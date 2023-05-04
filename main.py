@@ -42,13 +42,18 @@ class Gui(tk.Frame):
             self.button3.configure(state="normal")
 
     def transform_xlsx(self):
-        excel_edit.data_clean(self.input_file_path, self.output_file_path)
-        self.label.configure(text="Gotowe")
+        try:
+            excel_edit.data_clean(self.input_file_path, self.output_file_path)
+            self.label.configure(text="Gotowe")
+        except KeyError:
+            self.label.configure(text="Plik nie jest raportem GPS\nlub zmieniono jego strukturę")
 
 
 # Main screen
 root = customtkinter.CTk()
-root.geometry("400x300")
+root.geometry("300x300")
+root.minsize(300,300)
+root.maxsize(300,300)
 root.title("DriversExcel")
 Gui(root).pack()
 root.mainloop()
