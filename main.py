@@ -10,42 +10,45 @@ class Gui(tk.Frame):
         tk.Frame.__init__(self, parent)
         customtkinter.set_appearance_mode("dark")
         customtkinter.set_default_color_theme("dark-blue")
-        frame = customtkinter.CTkFrame(master=root)
-        frame.pack(pady=20, padx=60, fill="both", expand=True)
-        label = customtkinter.CTkLabel(master=frame, text="Wybierz raport",)
-        label.pack(pady=12, padx=10)
+        self.frame = customtkinter.CTkFrame(master=root)
+        self.frame.pack(pady=20, padx=60, fill="both", expand=True)
+        self.label = customtkinter.CTkLabel(
+            master=self.frame, text="Wybierz raport",)
+        self.label.pack(pady=12, padx=10)
 
-        button1 = customtkinter.CTkButton(
-            master=frame, text="Raport GPS", command=self.get_input_path)
-        button1.pack(pady=12, padx=10)
+        self.button1 = customtkinter.CTkButton(
+            master=self.frame, text="Raport GPS", command=self.get_input_path)
+        self.button1.pack(pady=12, padx=10)
+        self.button2 = customtkinter.CTkButton(
+        master=self.frame, text="Folder docelowy", command=self.get_output_path, state="disabled")
+        
+        self.button2.pack(pady=12, padx=10)
 
-        button2 = customtkinter.CTkButton(
-            master=frame, text="Folder docelowy", command=self.get_output_path)
-        button2.pack(pady=12, padx=10)
-
-        button3 = customtkinter.CTkButton(
-            master=frame, text="Uruchom", command=self.transform_xlsx)
-        button3.pack(pady=12, padx=10)
-
-        button4 = customtkinter.CTkButton(
-            master=frame, text="Wyjście", command=self.quit)
-        button4.pack(pady=12, padx=10)
+        self.button3 = customtkinter.CTkButton(
+            master=self.frame, text="Uruchom", command=self.transform_xlsx, state="disabled")
+        self.button3.pack(pady=12, padx=10)
 
     def get_input_path(self):
-        self.input_file_path = filedialog.askopenfilename()
+        self.input_file_path = filedialog.askopenfilename(filetypes=[("Excel file", ".xlsx")])
+        if self.input_file_path:
+            self.label.configure(text="Wybierz folder docelowy")
+            self.button2.configure(state="normal")
+
 
     def get_output_path(self):
         self.output_file_path = filedialog.askdirectory()
+        if self.input_file_path and self.output_file_path:
+            self.label.configure(text="Kliknij uruchom")
+            self.button3.configure(state="normal")
 
     def transform_xlsx(self):
         excel_edit.data_clean(self.input_file_path, self.output_file_path)
-
-    def quit(self):
-        exit()
+        self.label.configure(text="Gotowe")
 
 
 # Main screen
 root = customtkinter.CTk()
 root.geometry("400x300")
+root.title("DriversExcel")
 Gui(root).pack()
 root.mainloop()
