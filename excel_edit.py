@@ -6,11 +6,15 @@ ranges = [[0, 10, 0], [10, 50, 0.5], [50, 80, 1], [80, 130, 1.5], [130, 170, 2],
     1290, 1350, 14.5], [1350, 1390, 15], [1390, 1430, 15.5], [1430, 1490, 16], [1490, 1535, 16.5], [1535, 1590, 17], [1590, 1640, 17.5], [1640, 1690, 18], [1690, 1740, 18.5], [1740, 1785, 19], [1785, 1810, 19.5], [1810, 1860, 20], [1860, 1900, 20.5], [1900, 1940, 21], [1940, 1985, 21.5], [1985, 2015, 22], [2015, 2085, 22.5], [2085, 2115, 23], [2115, 2195, 23.5], [2195, 2240, 24], [2240, 2295, 24.5], [2295, 2330, 25], [2330, 2390, 25.5], [2390, 2430, 26], [2430, 2475, 26.5], [2475, 2510, 27], [2510, 2750, 27.5], [2750, 2900, 28], [2900, 3100, 29], [3100, 3300, 30]]
 
 # Changing row if
+
+
 def if_poland(row):
     if row["Państwo docelowe"] == "Polska":
         return "Nie"
 
 # Count how many hours based on ranges
+
+
 def estimate_hours(row):
     try:
         distance = int(row["Dystans [km]"])
@@ -23,6 +27,8 @@ def estimate_hours(row):
     return distance
 
 # Creates excel file wtih dataframe and driver's name
+
+
 def create_excel_table(new_df, driver, output_path):
     string = driver
     string = ''.join(e for e in string if e.isalnum())
